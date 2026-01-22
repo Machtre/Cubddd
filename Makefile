@@ -3,42 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+         #
+#    By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/01/20 17:13:50 by mbuisson          #+#    #+#              #
-#    Updated: 2026/01/21 20:19:32 by mbuisson         ###   ########.fr        #
+#    Created: 2026/01/22 11:37:36 by nguinot-          #+#    #+#              #
+#    Updated: 2026/01/22 11:38:09 by nguinot-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= parser
+NAME = cub3d
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g -Iincludes -Iminilibx
+MLX_DIR = ./minilibx
+SRC     = $(wildcard src/*.c src/movement/*.c src/rendering/*.c src/utils/*.c src/mlx/*.c src/main/*.c src/textures/*.c)
+OBJ     = $(SRC:.c=.o)
 
-CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g -I./includes
-
-SRCDIR	= src
-PARDIR	= $(SRCDIR)/parsing
-GNLDIR = $(SRCDIR)/GNL
-
-SRC		= $(PARDIR)/main.c \
-		  $(PARDIR)/ft_split.c\
-		  $(PARDIR)/ft_strtrim.c\
-		  $(PARDIR)/parse_color.c \
-		  $(PARDIR)/parse_map.c \
-		  $(PARDIR)/parse_textures.c \
-		  $(PARDIR)/parse.c \
-		  $(PARDIR)/check_map.c \
-		  $(PARDIR)/utils_parse.c\
-		  $(PARDIR)/utils_parse2.c\
-		  $(PARDIR)/utils_parse3.c\
-		  $(GNLDIR)/get_next_line.c\
-		  $(GNLDIR)/get_next_line_utils.c
-
-OBJ		= $(SRC:.c=.o)
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -52,4 +36,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-

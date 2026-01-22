@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 14:07:46 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/21 20:22:55 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:19:23 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "structs.h"
 
 static size_t	checkset(char c, const char *set)
 {

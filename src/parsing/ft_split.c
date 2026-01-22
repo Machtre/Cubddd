@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 14:03:53 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/21 20:20:54 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:19:23 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "structs.h"
 
 static int	count_words(char const *s, char c)
 {

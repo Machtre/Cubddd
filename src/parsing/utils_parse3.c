@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 20:18:34 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/21 20:19:05 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:19:23 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "structs.h"
 
 char	*ft_strchr(const char *s, int c)
 {

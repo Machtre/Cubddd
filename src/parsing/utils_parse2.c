@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 20:15:43 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/21 20:23:10 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:52:04 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "structs.h"
 
 int	count_tab(char **tab)
 {
@@ -24,21 +24,21 @@ int	count_tab(char **tab)
 	return (i);
 }
 
-void	free_data(t_data *data)
+void	free_data(t_cub *cub)
 {
 	int	i;
 
-	if (!data)
+	if (!cub)
 		return ;
 	i = 0;
 	while (i < 4)
 	{
-		if (data->textures[i].path)
-			free(data->textures[i].path);
+		if (cub->textures[i].path)
+			free(cub->textures[i].path);
 		i++;
 	}
-	if (data->map.grid)
-		free_tab(data->map.grid);
+	if (cub->map.grid)
+		free_tab(cub->map.grid);
 }
 
 int	ft_atoi(char *str)

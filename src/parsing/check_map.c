@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:23 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/21 20:14:53 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:40:45 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "structs.h"
 
 void	normalize_map(t_map *map)
 {
@@ -47,26 +47,26 @@ int	is_walkable(char c)
 	return (0);
 }
 
-void	check_map_closed(t_data *data)
+void	check_map_closed(t_cub *cub)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	while (y < data->map.height)
+	while (y < cub->map.height)
 	{
 		x = 0;
-		while (x < data->map.width)
+		while (x < cub->map.width)
 		{
-			if (is_walkable(data->map.grid[y][x]))
+			if (is_walkable(cub->map.grid[y][x]))
 			{
-				if (y == 0 || x == 0 || y == data->map.height - 1
-					|| x == data->map.width - 1)
-					error(data, "Map not closed (open border)");
-				if (data->map.grid[y][x - 1] == ' ' || data->map.grid[y][x
-					+ 1] == ' ' || data->map.grid[y - 1][x] == ' '
-					|| data->map.grid[y + 1][x] == ' ')
-					error(data, "Map not closed (hole)");
+				if (y == 0 || x == 0 || y == cub->map.height - 1
+					|| x == cub->map.width - 1)
+					error(cub, "Map not closed (open border)");
+				if (cub->map.grid[y][x - 1] == ' ' || cub->map.grid[y][x
+					+ 1] == ' ' || cub->map.grid[y - 1][x] == ' '
+					|| cub->map.grid[y + 1][x] == ' ')
+					error(cub, "Map not closed (hole)");
 			}
 			x++;
 		}
@@ -74,27 +74,27 @@ void	check_map_closed(t_data *data)
 	}
 }
 
-void	check_map_char(t_data *data)
+void	check_map_char(t_cub *cub)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	while (y < data->map.height)
+	while (y < cub->map.height)
 	{
 		x = 0;
-		while (x < data->map.width)
+		while (x < cub->map.width)
 		{
-			if (!ft_strchr("01 NSEW", data->map.grid[y][x]))
-				error(data, "Invalid chararcter in map");
+			if (!ft_strchr("01 NSEW", cub->map.grid[y][x]))
+				error(cub, "Invalid chararcter in map");
 			x++;
 		}
 		y++;
 	}
 }
 
-void	check_map(t_data *data)
+void	check_map(t_cub *cub)
 {
-	check_map_char(data);
-	check_map_closed(data);
+	check_map_char(cub);
+	check_map_closed(cub);
 }

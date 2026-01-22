@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:52:44 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/21 20:20:39 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:51:10 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "structs.h"
 
 void	free_tab(char **tab)
 {
@@ -27,11 +27,11 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	init_data(t_data *data)
+void	init_data(t_cub *cub)
 {
-	ft_bzero(data, sizeof(t_data));
-	data->floor_color = -1;
-	data->ceiling_color = -1;
+	ft_bzero(cub, sizeof(t_cub));
+	cub->floor_color = -1;
+	cub->ceiling_color = -1;
 }
 
 void	ft_bzero(void *s, size_t n)
@@ -63,10 +63,10 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-void	error(t_data *data, char *msg)
+void	error(t_cub *cub, char *msg)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(msg, 2);
-	free_data(data);
+	free_data(cub);
 	exit(EXIT_FAILURE);
 }

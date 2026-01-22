@@ -1,42 +1,43 @@
 #include "structs.h"
+#include "structs.h"
 #include "../minilibx/mlx.h"
 
 // Map de test avec portes (2 = porte fermée)
-char *g_test_map[] = {
-    "111111111111",
-    "100000000001",
-    "101000000001",
-    "100000000001",
-    "100000100001",
-    "10000000S001",
-    "100000000001",
-    "111111111111",
-    NULL
-};
+// char *g_test_map[] = {
+//     "111111111111",
+//     "100000000001",
+//     "101000000001",
+//     "100000000001",
+//     "100000100001",
+//     "10000000S001",
+//     "100000000001",
+//     "111111111111",
+//     NULL
+// };
 
-void init_map(t_cub *cub)
-{
-	int i;
-	int max_width;
+// void init_map(t_cub *cub)
+// {
+// 	int i;
+// 	int max_width;
 
-	i = 0;
-	max_width = 0;
+// 	i = 0;
+// 	max_width = 0;
 	
-	// Compter la hauteur et trouver la largeur max
-	while (g_test_map[i])
-	{
-		int len = 0;
-		while (g_test_map[i][len])
-			len++;
-		if (len > max_width)
-			max_width = len;
-		i++;
-	}
+// 	// Compter la hauteur et trouver la largeur max
+// 	while (g_test_map[i])
+// 	{
+// 		int len = 0;
+// 		while (g_test_map[i][len])
+// 			len++;
+// 		if (len > max_width)
+// 			max_width = len;
+// 		i++;
+// 	}
 	
-	cub->map.height = i;
-	cub->map.width = max_width;
-	cub->map.grid = g_test_map;
-}
+// 	cub->map.height = i;
+// 	cub->map.width = max_width;
+// 	cub->map.grid = g_test_map;
+// }
 
 void init_mlx(t_cub *cub)
 {
@@ -109,17 +110,30 @@ int close_window(t_cub *cub)
 	return (0);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
+	printf("prrr");
+	(void)argc;
+	// t_data data;
 	t_cub cub;
+	printf("caca");
 	memset(&cub, 0, sizeof(t_cub));
-	cub.move_speed = 0.02;
-	cub.move_speed = 0.02;
-	init_map(&cub);
+	init_data(&cub);
+	parse_cub(&cub, argv[1]);
+	printf("etape 1");
+	// memset(&cub, 0, sizeof(t_cub));
+	printf("etape 2");
+	cub.move_speed = 0.01;
+	cub.move_speed = 0.01;
+	// init_map(&cub);
 	init_player(&cub);
+	printf("etape 3");
 	init_mlx(&cub);
+	printf("etape 4");
 	load_textures(&cub);
+	printf("etape 5");
 	render_frame(&cub);
+	printf("etape 6");
 	mlx_hook(cub.win, 2, 1L<<0, key_press, &cub);
 	mlx_hook(cub.win, 3, 1L<<1, key_release, &cub);
 	mlx_hook(cub.win, 17, 0, close_window, &cub);

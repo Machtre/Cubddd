@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:45 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/20 18:52:03 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:21:38 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "structs.h"
 
 int check_extension(char *file, char *ext)
 {
@@ -66,28 +66,28 @@ int check_extension(char *file, char *ext)
 // 	return (0);
 // }
 
-int	main(int argc, char **argv)
-{
-	t_data	data;
-	(void)argc;
-	// if (argc != 2)
-	// {
-	// 	error("Usage: ./cub3D <map.cub>");
-	// 	return (1);
-	// }
+// int	main(int argc, char **argv)
+// {
+// 	t_data	data;
+// 	(void)argc;
+// 	// if (argc != 2)
+// 	// {
+// 	// 	error("Usage: ./cub3D <map.cub>");
+// 	// 	return (1);
+// 	// }
 
-	init_data(&data);
-	parse_cub(&data, argv[1]);
+// 	init_data(&data);
+// 	parse_cub(&data, argv[1]);
 
-	printf("Parsing OK ✅\n");
-	printf("Map size: %d x %d\n", data.map.width, data.map.height);
-	printf("Player start: %c at (%f, %f)\n",
-		data.player.start_dir,
-		data.player.x,
-		data.player.y);
+// 	printf("Parsing OK ✅\n");
+// 	printf("Map size: %d x %d\n", data.map.width, data.map.height);
+// 	printf("Player start: %c at (%f, %f)\n",
+// 		data.player.start_dir,
+// 		data.player.x,
+// 		data.player.y);
 
-	free_data(&data);
-	return (0);
-}
+// 	free_data(&data);
+// 	return (0);
+// }
 
 

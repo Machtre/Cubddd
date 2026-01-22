@@ -6,11 +6,30 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+# include <fcntl.h>
+# include <stddef.h>
 
 
-
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+#endif 
 # define WIN_W 800
 # define WIN_H 600
+
+typedef struct s_parsing
+{
+	int			in_map;
+	int			map_finished;
+}				t_parsing;
+
+typedef struct s_texture
+{
+	char *path; // Chemin vers le .xpm
+	void *img;  // Image MLX
+	int			width;
+	int			height;
+	int *addr; // Pixels
+}				t_texture;
 
 typedef struct s_player
 {
@@ -23,12 +42,32 @@ typedef struct s_player
 	char	start_dir;
 }	t_player;
 
+enum			e_tex
+{
+	NO,
+	SO,
+	WE,
+	EA
+};
+
 typedef struct s_map
 {
 	char **grid;
 	int width;
 	int height;
 }	t_map;
+
+typedef struct s_data
+{
+	t_map		map;
+	t_texture	textures[4];
+	int			floor_color;
+	int			ceiling_color;
+	t_player	player;
+	t_parsing	parsing;
+	// t_ray		ray;
+	// t_mlx		mlx;
+}				t_data;
 
 typedef struct s_ray
 {
@@ -67,7 +106,12 @@ typedef struct s_tex
 typedef struct s_cub
 {
 	t_player	player; // donees
+	// t_data	data;
 	t_map	map;
+	t_texture	textures[4];
+	int			floor_color;
+	int			ceiling_color;
+	t_parsing	parsing;
 	t_ray	ray;
 
 	void	*mlx; //contexte mlx
@@ -142,6 +186,55 @@ void	set_direction(t_cub *cub, char d);
 //init_textures.c
 void	load_textures(t_cub* cub);
 t_tex *get_wall_texture(t_cub *cub, t_ray *ray);
+
+// gnl
+int				check(char *str);
+char			*extractline(char *s);
+char			*clean(char *s);
+char			*get_next_line(int fd);
+size_t			ft_strlen(const char *str);
+char			*read_and_yeah(int fd, char *yeah);
+char			*ft_strjoin(char *s1, char const *s2);
+void			*ft_memcpy(void *dest, const void *src, size_t n);
+
+// parsing
+void			normalize_map(t_map *map);
+int				is_player(char c);
+int				is_walkable(char c);
+void			check_map_closed(t_cub *cub);
+void			parse_color(t_cub *cub, char *line);
+void			check_rgb(t_cub *cub, char **rgb);
+int				is_color(char *line);
+int				rgb_to_int(int r, int g, int b);
+void			set_color(t_cub *cub, char id, char **rgb);
+int				is_map_line(char *line);
+void			parse_map_line(t_cub *cub, char *line);
+char			*ft_strdup(char *s);
+char			**add_line(char **grid, char *line);
+int				is_texture(char *line);
+void			set_texture(t_cub *cub, char *id, char *path);
+void			parse_texture(t_cub *cub, char *line);
+void			parse_line(t_cub *cub, char *line);
+void			parse_cub(t_cub *cub, char *path);
+void			set_player(t_cub *cub, char dir, int y, int x);
+void			replace_player_by_zero(t_map *map);
+void			check_parsing_complete(t_cub *cub);
+void			free_tab(char **tab);
+void			init_data(t_cub *cub);
+void			check_map_char(t_cub *cub);
+void			check_map(t_cub *cub);
+void			ft_putendl_fd(char *s, int fd);
+void			error(t_cub *cub, char *msg);
+char			**ft_split(char const *s, char c);
+char			*ft_strtrim(const char *s1, const char *set);
+int				ft_atoi(char *str);
+void			ft_bzero(void *s, size_t n);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+void			free_data(t_cub *cub);
+int				ft_is_digit(int c);
+int				count_tab(char **tab);
+char			*ft_strchr(const char *s, int c);
+int				ft_strcmp(const char *s1, const char *s2);
 
 
 #endif

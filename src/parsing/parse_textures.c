@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:09 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/20 18:26:12 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:57:29 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "structs.h"
 
 int	is_texture(char *line)
 {
@@ -18,7 +18,7 @@ int	is_texture(char *line)
 		|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3));
 }
 
-void	set_texture(t_data *data, char *id, char *path)
+void	set_texture(t_cub *cub, char *id, char *path)
 {
 	int	index;
 
@@ -32,19 +32,19 @@ void	set_texture(t_data *data, char *id, char *path)
 	else if (!ft_strcmp(id, "WE"))
 		index = WE;
 	else
-		error(data, "Unknown texture identifier");
-	if (data->textures[index].path)
-		error(data, "Duplicate texture");
-	data->textures[index].path = ft_strdup(path);
+		error(cub, "Unknown texture identifier");
+	if (cub->textures[index].path)
+		error(cub, "Duplicate texture");
+	cub->textures[index].path = ft_strdup(path);
 }
 
-void	parse_texture(t_data *data, char *line)
+void	parse_texture(t_cub *cub, char *line)
 {
 	char	**split;
 
 	split = ft_split(line, ' ');
 	if (count_tab(split) != 2)
-		error(data, "Invalid texture line");
-	set_texture(data, split[0], split[1]);
+		error(cub, "Invalid texture line");
+	set_texture(cub, split[0], split[1]);
 	free_tab(split);
 }

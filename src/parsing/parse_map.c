@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:16 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/21 20:14:08 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:44:54 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "structs.h"
 
 int	is_map_line(char *line)
 {
@@ -33,7 +33,7 @@ int	is_player(char c)
 	return (0);
 }
 
-void	parse_map_line(t_data *data, char *line)
+void	parse_map_line(t_cub *cub, char *line)
 {
 	int	i;
 	int	len;
@@ -44,16 +44,16 @@ void	parse_map_line(t_data *data, char *line)
 	{
 		if (is_player(line[i]))
 		{
-			set_player(data, line[i], data->map.height, i);
-			replace_player_by_zero(&data->map);
+			set_player(cub, line[i], cub->map.height, i);
+			replace_player_by_zero(&cub->map);
 		}
 		i++;
 	}
-	data->map.grid = add_line(data->map.grid, line);
-	data->map.height++;
+	cub->map.grid = add_line(cub->map.grid, line);
+	cub->map.height++;
 	len = ft_strlen(line);
-	if (len > data->map.width)
-		data->map.width = len;
+	if (len > cub->map.width)
+		cub->map.width = len;
 }
 
 char	*ft_strdup(char *s)

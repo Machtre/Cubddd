@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+         #
+#    By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 11:37:36 by nguinot-          #+#    #+#              #
-#    Updated: 2026/01/26 13:23:16 by mbuisson         ###   ########.fr        #
+#    Updated: 2026/01/27 11:00:25 by nguinot-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g -Iincludes -Iminilibx
-MLX_DIR = ./minilibx/minilibx-linux
+MLX_DIR = ./minilibx
 SRC     = $(wildcard src/*.c src/movement/*.c src/rendering/*.c src/utils/*.c src/mlx/*.c src/main/*.c src/textures/*.c src/parsing/*.c src/GNL/*.c)
 OBJ     = $(SRC:.c=.o)
 

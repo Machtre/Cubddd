@@ -1,6 +1,6 @@
 #include "structs.h"
 #include "structs.h"
-#include "../minilibx/mlx.h"
+#include "../minilibx/minilibx-linux/mlx.h"
 
 // Map de test avec portes (2 = porte fermée)
 // char *g_test_map[] = {
@@ -76,7 +76,7 @@ void clear_image(t_cub *cub)
 		x = 0;
 		while (x < WIN_W)
 		{
-			my_mlx_pixel_put(cub, x, y, 0x87CEEB); // Bleu ciel
+			my_mlx_pixel_put(cub, x, y, cub->floor_color);
 			x++;
 		}
 		y++;
@@ -88,7 +88,7 @@ void clear_image(t_cub *cub)
 		x = 0;
 		while (x < WIN_W)
 		{
-			my_mlx_pixel_put(cub, x, y, 0x404040); // Gris foncé
+			my_mlx_pixel_put(cub, x, y, cub->ceiling_color);
 			x++;
 		}
 		y++;
@@ -106,34 +106,28 @@ int render_frame(t_cub *cub)
 int close_window(t_cub *cub)
 {
 	mlx_destroy_window(cub->mlx, cub->win);
+	free_data(cub);
 	exit(0);
 	return (0);
 }
 
 int main(int argc, char **argv)
 {
-	printf("prrr");
 	(void)argc;
 	// t_data data;
 	t_cub cub;
-	printf("caca");
 	memset(&cub, 0, sizeof(t_cub));
 	init_data(&cub);
 	parse_cub(&cub, argv[1]);
-	printf("etape 1");
 	// memset(&cub, 0, sizeof(t_cub));
 	printf("etape 2");
 	cub.move_speed = 0.01;
 	cub.move_speed = 0.01;
 	// init_map(&cub);
 	init_player(&cub);
-	printf("etape 3");
 	init_mlx(&cub);
-	printf("etape 4");
 	load_textures(&cub);
-	printf("etape 5");
 	render_frame(&cub);
-	printf("etape 6");
 	mlx_hook(cub.win, 2, 1L<<0, key_press, &cub);
 	mlx_hook(cub.win, 3, 1L<<1, key_release, &cub);
 	mlx_hook(cub.win, 17, 0, close_window, &cub);

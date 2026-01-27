@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:09 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/22 14:57:29 by nguinot-         ###   ########.fr       */
+/*   Updated: 2026/01/26 12:11:40 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,17 @@ void	parse_texture(t_cub *cub, char *line)
 	set_texture(cub, split[0], split[1]);
 	free_tab(split);
 }
+
+void	free_textures(t_cub *cub)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (cub->textures[i].path)
+			free(cub->textures[i].path);
+		i++;
+	}
+}
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:23 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/22 14:40:45 by nguinot-         ###   ########.fr       */
+/*   Updated: 2026/01/26 11:23:04 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,24 @@ void	normalize_map(t_map *map)
 {
 	int		i;
 	int		j;
+	int		len;
 	char	*new;
 
+	if (!map || !map->grid)
+		return ;
 	i = 0;
 	while (i < map->height)
 	{
-		new = malloc(map->width + 1);
+		if (!map->grid[i])
+			return ;
+		len = ft_strlen(map->grid[i]);
+		new = malloc(sizeof(char) * (map->width + 1));
 		if (!new)
 			return ;
 		j = 0;
 		while (j < map->width)
 		{
-			if (j < (int)ft_strlen(map->grid[i]))
+			if (j < len)
 				new[j] = map->grid[i][j];
 			else
 				new[j] = ' ';
@@ -39,6 +45,7 @@ void	normalize_map(t_map *map)
 		i++;
 	}
 }
+
 
 int	is_walkable(char c)
 {

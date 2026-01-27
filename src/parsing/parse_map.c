@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:16 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/22 14:44:54 by nguinot-         ###   ########.fr       */
+/*   Updated: 2026/01/26 12:21:41 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char	*ft_strdup(char *s)
 	int		len;
 	char	*new;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	len = 0;
 	while (s[len])
@@ -93,16 +95,33 @@ char	**add_line(char **grid, char *line)
 	i = 0;
 	new = malloc(sizeof(char *) * (len + 2));
 	if (!new)
-		return (0);
+		return (NULL);
 	while (i < len)
 	{
 		new[i] = grid[i];
 		i++;
 	}
 	new[i] = ft_strdup(line);
-	if (!new)
-		return (0);
+	if (!new[i])
+	{
+		free(new);
+		return (NULL);
+	}
 	new[i + 1] = NULL;
 	free(grid);
 	return (new);
 }
+
+// 56 bytes in 1 blocks are still reachable in loss record 21 of 65
+// ==81704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==81704==    by 0x11161B: add_line (parse_map.c:96)
+// ==81704==    by 0x1114C2: parse_map_line (parse_map.c:52)
+// ==81704==    by 0x110D31: parse_line (parse.c:45)
+// ==81704==    by 0x110DBB: parse_cub (parse.c:63)
+// ==81704==    by 0x10FEE1: main (main.c:122)
+// ==81704== 
+// ==81704== 66 bytes in 6 blocks are still reachable in loss record 22 of 65
+// ==81704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+// ==81704==    by 0x11029A: normalize_map (check_map.c:30)
+// ==81704==    by 0x110E02: parse_cub (parse.c:68)
+// ==81704==    by 0x10FEE1: main (main.c:122)

@@ -120,7 +120,6 @@ int main(int argc, char **argv)
 	init_data(&cub);
 	parse_cub(&cub, argv[1]);
 	// memset(&cub, 0, sizeof(t_cub));
-	printf("etape 2");
 	cub.move_speed = 0.01;
 	cub.move_speed = 0.01;
 	// init_map(&cub);

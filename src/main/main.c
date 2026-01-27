@@ -99,6 +99,8 @@ int render_frame(t_cub *cub)
 {
 	clear_image(cub);
 	raycasting(cub);
+	draw_minimap(cub);
+	draw_player(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 	return (0);
 }

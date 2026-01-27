@@ -9,10 +9,9 @@
 # include <string.h>
 # include <unistd.h>
 
-#define MM_SCALE 8   // taille d’une case en pixels
-#define MM_X 20      // position mini-map écran
-#define MM_Y 20
-
+# define MM_SCALE 8 // taille d’une case en pixels
+# define MM_X 20    // position mini-map écran
+# define MM_Y 20
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -243,4 +242,13 @@ char			*ft_strchr(const char *s, int c);
 int				ft_strcmp(const char *s1, const char *s2);
 void			free_textures(t_cub *cub);
 
+// mini_map
+
+void			put_pixel(t_cub *cub, int x, int y, int color);
+void			draw_square(t_cub *cub, int x, int y, int size, int color);
+void			draw_circle(t_cub *cub, int cx, int cy, int radius, int color);
+void			draw_player(t_cub *cub);
+void			draw_line(t_cub *cub, int x0, int y0, int x1, int y1,
+					int color);
+void			draw_minimap(t_cub *cub);
 #endif

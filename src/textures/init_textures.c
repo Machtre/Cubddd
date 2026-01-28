@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:56:24 by nguinot-          #+#    #+#             */
-/*   Updated: 2026/01/26 11:04:43 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/27 10:59:38 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
-#include "../minilibx/minilibx-linux/mlx.h"
+#include "../../minilibx/mlx.h"
 
 static void	load_texture(t_cub *cub, t_tex *tex, char *path)
 {

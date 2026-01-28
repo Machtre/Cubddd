@@ -6,7 +6,7 @@
 /*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 17:48:05 by nguinot-          #+#    #+#             */
-/*   Updated: 2026/01/22 15:04:16 by nguinot-         ###   ########.fr       */
+/*   Updated: 2026/01/27 11:01:13 by nguinot-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int update_player(t_cub *cub)
 {
 	double	rotate_speed;
 
-	rotate_speed = 0.01;
+	rotate_speed = 0.02;
 	if (cub->key_w) move_forward(cub);
 	if (cub->key_s) move_backward(cub);
 	if (cub->key_a) move_left(cub);

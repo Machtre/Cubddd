@@ -1,6 +1,7 @@
 #include "structs.h"
 #include "structs.h"
-#include "../minilibx/minilibx-linux/mlx.h"
+#include "../../minilibx/mlx.h"
+
 
 // Map de test avec portes (2 = porte fermée)
 // char *g_test_map[] = {
@@ -116,15 +117,15 @@ int close_window(t_cub *cub)
 int main(int argc, char **argv)
 {
 	(void)argc;
-	// t_data data;
 	t_cub cub;
 	memset(&cub, 0, sizeof(t_cub));
 	init_data(&cub);
 	parse_cub(&cub, argv[1]);
-	// memset(&cub, 0, sizeof(t_cub));
+
 	cub.move_speed = 0.01;
-	cub.move_speed = 0.01;
-	// init_map(&cub);
+	cub.move_speed = 0.02;
+	cub.move_speed = 0.02;
+
 	init_player(&cub);
 	init_mlx(&cub);
 	load_textures(&cub);

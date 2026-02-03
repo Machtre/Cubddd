@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 16:32:12 by nguinot-          #+#    #+#             */
-/*   Updated: 2026/01/19 17:34:39 by nguinot-         ###   ########.fr       */
+/*   Updated: 2026/01/30 13:27:53 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,3 @@ void	move_left(t_cub *cub)
 	if (cub->map.grid[(int)new_y][(int)cub->player.x] != '1')
 		cub->player.y = new_y;
 }
-
-
-

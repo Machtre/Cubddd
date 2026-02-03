@@ -6,16 +6,31 @@
 /*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:23 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/26 11:23:04 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:02:07 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 
+static void	while_j(int i, int len, char *new, t_map *map)
+{
+	int	j;
+
+	j = 0;
+	while (j < map->width)
+	{
+		if (j < len)
+			new[j] = map->grid[i][j];
+		else
+			new[j] = ' ';
+		j++;
+	}
+	new[j] = '\0';
+}
+
 void	normalize_map(t_map *map)
 {
 	int		i;
-	int		j;
 	int		len;
 	char	*new;
 
@@ -30,22 +45,12 @@ void	normalize_map(t_map *map)
 		new = malloc(sizeof(char) * (map->width + 1));
 		if (!new)
 			return ;
-		j = 0;
-		while (j < map->width)
-		{
-			if (j < len)
-				new[j] = map->grid[i][j];
-			else
-				new[j] = ' ';
-			j++;
-		}
-		new[j] = '\0';
+		while_j(i, len, new, map);
 		free(map->grid[i]);
 		map->grid[i] = new;
 		i++;
 	}
 }
-
 
 int	is_walkable(char c)
 {
@@ -98,10 +103,4 @@ void	check_map_char(t_cub *cub)
 		}
 		y++;
 	}
-}
-
-void	check_map(t_cub *cub)
-{
-	check_map_char(cub);
-	check_map_closed(cub);
 }

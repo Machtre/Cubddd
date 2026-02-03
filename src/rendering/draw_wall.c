@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 10:20:34 by nguinot-          #+#    #+#             */
-/*   Updated: 2026/01/21 10:34:50 by nguinot-         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:04:51 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 
 static void	calculate_limits(t_ray *ray, int *line_height, int *draw_start,
-	int *draw_end)
+		int *draw_end)
 {
 	*line_height = (int)(WIN_H / ray->perp_wall_dist);
 	*draw_start = -(*line_height) / 2 + WIN_H / 2;
@@ -44,9 +44,9 @@ static int	calculate_tex_x(t_cub *cub, t_ray *ray, t_tex *tex)
 
 static void	draw_vertical_line(t_cub *cub, t_draw_data *data, int x)
 {
-	int		y;
-	int		tex_y;
-	int		color;
+	int	y;
+	int	tex_y;
+	int	color;
 
 	y = data->draw_start;
 	while (y < data->draw_end)
@@ -57,9 +57,8 @@ static void	draw_vertical_line(t_cub *cub, t_draw_data *data, int x)
 		if (tex_y >= data->tex->height)
 			tex_y = data->tex->height - 1;
 		data->tex_pos += data->step;
-		color = *(unsigned int *)(data->tex->addr 
-			+ tex_y * data->tex->line_len
-			+ data->tex_x * (data->tex->bpp / 8));
+		color = *(unsigned int *)(data->tex->addr + tex_y * data->tex->line_len
+				+ data->tex_x * (data->tex->bpp / 8));
 		my_mlx_pixel_put(cub, x, y, color);
 		y++;
 	}

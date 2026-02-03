@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:00 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/22 14:50:07 by nguinot-         ###   ########.fr       */
+/*   Updated: 2026/01/30 14:43:32 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
+
+static void	do_texture(t_cub *cub, char *trimmed)
+{
+	if (cub->parsing.map_finished)
+		error(cub, "Texture after map");
+	parse_texture(cub, trimmed);
+}
+
+static void	do_color(t_cub *cub, char *trimmed)
+{
+	if (cub->parsing.map_finished)
+		error(cub, "Color after map");
+	parse_color(cub, trimmed);
+}
 
 void	parse_line(t_cub *cub, char *line)
 {
@@ -28,17 +42,9 @@ void	parse_line(t_cub *cub, char *line)
 	if (cub->parsing.map_finished)
 		error(cub, "Invalid content after map");
 	if (is_texture(trimmed))
-	{
-		if (cub->parsing.map_finished)
-			error(cub, "Texture after map");
-		parse_texture(cub, trimmed);
-	}
+		do_texture(cub, trimmed);
 	else if (is_color(trimmed))
-	{
-		if (cub->parsing.map_finished)
-			error(cub, "Color after map");
-		parse_color(cub, trimmed);
-	}
+		do_color(cub, trimmed);
 	else if (is_map_line(trimmed))
 	{
 		cub->parsing.in_map = 1;
@@ -58,43 +64,17 @@ void	parse_cub(t_cub *cub, char *path)
 	if (fd < 0)
 		error(cub, "Cannot open file");
 	init_data(cub);
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		parse_line(cub, line);
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	check_parsing_complete(cub);
 	normalize_map(&cub->map);
 	check_map(cub);
-}
-
-void	set_player(t_cub *cub, char dir, int y, int x)
-{
-	if (cub->player.start_dir)
-		error(cub, "multiple player positions");
-	cub->player.start_dir = dir;
-	cub->player.x = x + 0.5;
-	cub->player.y = y + 0.5;
-}
-
-void	replace_player_by_zero(t_map *map)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < map->height)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			if (is_player(map->grid[y][x]))
-				map->grid[y][x] = '0';
-			x++;
-		}
-		y++;
-	}
 }
 
 void	check_parsing_complete(t_cub *cub)

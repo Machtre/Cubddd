@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 09:31:48 by mbuisson          #+#    #+#             */
+/*   Updated: 2026/02/03 09:36:57 by mbuisson         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
@@ -19,6 +31,41 @@
 # define WIN_W 800
 # define WIN_H 600
 
+typedef struct s_square
+{
+	int			x;
+	int			y;
+	int			size;
+	int			color;
+}				t_square;
+
+typedef struct s_circle
+{
+	int			cx;
+	int			cy;
+	int			radius;
+	int			color;
+}				t_circle;
+
+typedef struct s_line
+{
+	int			x0;
+	int			y0;
+	int			x1;
+	int			y1;
+	int			color;
+}				t_line;
+
+typedef struct s_line_calc
+{
+	int			steps;
+	int			i;
+	double		x;
+	double		y;
+	double		x_inc;
+	double		y_inc;
+}				t_line_calc;
+
 typedef struct s_parsing
 {
 	int			in_map;
@@ -27,21 +74,21 @@ typedef struct s_parsing
 
 typedef struct s_texture
 {
-	char *path; // Chemin vers le .xpm
-	void *img;  // Image MLX
+	char		*path;
+	void		*img;
 	int			width;
 	int			height;
-	int *addr; // Pixels
+	int			*addr;
 }				t_texture;
 
 typedef struct s_player
 {
-	double x;       // pos sur l'axe X
-	double y;       // pos sur l'axe Y
-	double dir_x;   // vecteur dir regard (x)
-	double dir_y;   // vecteur dir regard Y
-	double plane_x; // vecteur camera x
-	double plane_y; // vecteur camera y
+	double		x;
+	double		y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 	char		start_dir;
 }				t_player;
 
@@ -68,32 +115,29 @@ typedef struct s_data
 	int			ceiling_color;
 	t_player	player;
 	t_parsing	parsing;
-	// t_ray		ray;
-	// t_mlx		mlx;
 }				t_data;
 
 typedef struct s_ray
 {
-	double camera_x;  // pos x sur plan camera entre -1 et 1
-	double ray_dir_x; // dir rayon
+	double		camera_x;
+	double		ray_dir_x;
 	double		ray_dir_y;
 
-	int map_x; // case de depart
+	int			map_x;
 	int			map_y;
 
-	double side_dist_x; // distances a parcourir avant prochaine frontiere
+	double		side_dist_x;
 	double		side_dist_y;
 
-	double delta_dist_x; // cout pr traverser case
+	double		delta_dist_x;
 	double		delta_dist_y;
 
 	double		perp_wall_dist;
-	// distance perpendicullaire entre joueur et mur touche
 
-	int step_x; // sens de deplacement, -1 / +1
+	int			step_x;
 	int			step_y;
-	int hit;  // indicateur 0/1 mur touche ou pas
-	int side; // indicateur type de mur touche (vertical(x) / horizontal(y))
+	int			hit;
+	int			side;
 }				t_ray;
 
 typedef struct s_tex
@@ -109,8 +153,7 @@ typedef struct s_tex
 
 typedef struct s_cub
 {
-	t_player player; // donees
-	// t_data	data;
+	t_player	player;
 	t_map		map;
 	t_texture	textures[4];
 	int			floor_color;
@@ -118,10 +161,10 @@ typedef struct s_cub
 	t_parsing	parsing;
 	t_ray		ray;
 
-	void *mlx; // contexte mlx
+	void		*mlx;
 	void		*win;
 
-	void *img; // images de rendu
+	void		*img;
 	char		*addr;
 	int			bpp;
 	int			line_len;
@@ -152,47 +195,35 @@ typedef struct s_draw_data
 	double		tex_pos;
 }				t_draw_data;
 
-// RENDERING
-// raycasting.c
+//raycating
 void			raycasting(t_cub *cub);
-// utils_raycasting.c
 void			init_ray(t_cub *cub, t_ray *ray, int x);
 void			calc_step_and_side_dist(t_cub *cub, t_ray *ray);
 void			perform_dda(t_cub *cub, t_ray *ray);
 void			calc_wall_distance(t_ray *ray);
 void			init_var(t_cub *cub, t_ray *ray, int x);
-void			draw_wall_column(t_cub *cub, int x, int y, int draw_end,
-					char tile);
+// void			draw_wall_column(t_cub *cub, int x, int y, int draw_end,
+					// char tile);
 void			draw_wall(t_cub *cub, t_ray *ray, int x);
 void			my_mlx_pixel_put(t_cub *cub, int x, int y, int color);
 
-// MOVEMENT
-// rot.c
 void			rotate_player(t_cub *cub, double rot_speed);
-// move_player.c
 void			move_forward(t_cub *cub);
 void			move_backward(t_cub *cub);
 void			move_left(t_cub *cub);
 void			move_right(t_cub *cub);
-// key_hook.c
 int				key_press(int keycode, t_cub *cub);
 int				key_release(int keycode, t_cub *cub);
 int				update_player(t_cub *cub);
-// main.c
 int				render_frame(t_cub *cub);
 int				close_window(t_cub *cub);
-// door.c
 void			open_close_door(t_cub *cub);
-// spawn.c
 void			init_player(t_cub *cub);
 void			set_direction(t_cub *cub, char d);
 
-// TEXTURES
-// init_textures.c
 void			load_textures(t_cub *cub);
 t_tex			*get_wall_texture(t_cub *cub, t_ray *ray);
 
-// gnl
 int				check(char *str);
 char			*extractline(char *s);
 char			*clean(char *s);
@@ -202,7 +233,7 @@ char			*read_and_yeah(int fd, char *yeah);
 char			*ft_strjoin(char *s1, char const *s2);
 void			*ft_memcpy(void *dest, const void *src, size_t n);
 
-// parsing
+//parsing
 void			normalize_map(t_map *map);
 int				is_player(char c);
 int				is_walkable(char c);
@@ -241,14 +272,15 @@ int				count_tab(char **tab);
 char			*ft_strchr(const char *s, int c);
 int				ft_strcmp(const char *s1, const char *s2);
 void			free_textures(t_cub *cub);
+int				tablen(char **tab);
 
-// mini_map
-
+//minimap
 void			put_pixel(t_cub *cub, int x, int y, int color);
-void			draw_square(t_cub *cub, int x, int y, int size, int color);
-void			draw_circle(t_cub *cub, int cx, int cy, int radius, int color);
+void			draw_square(t_cub *cub, t_square *square);
+void			draw_circle(t_cub *cub, t_circle *circle);
 void			draw_player(t_cub *cub);
-void			draw_line(t_cub *cub, int x0, int y0, int x1, int y1,
-					int color);
+void			draw_line(t_cub *cub, t_line *line);
 void			draw_minimap(t_cub *cub);
+int				ft_abs(int n);
+
 #endif

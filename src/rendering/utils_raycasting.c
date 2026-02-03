@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_raycasting.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 13:31:57 by nguinot-          #+#    #+#             */
-/*   Updated: 2026/01/22 14:27:42 by nguinot-         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:04:58 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	init_ray(t_cub *cub, t_ray *ray, int x)
 {
 	ray->camera_x = 2 * x / (double)WIN_W - 1;
-
 	ray->ray_dir_x = cub->player.dir_x + cub->player.plane_x * ray->camera_x;
 	ray->ray_dir_y = cub->player.dir_y + cub->player.plane_y * ray->camera_x;
 	ray->map_x = (int)cub->player.x;
@@ -26,10 +25,9 @@ void	init_ray(t_cub *cub, t_ray *ray, int x)
 	ray->side = 0;
 }
 
-
-void calc_step_and_side_dist(t_cub *cub, t_ray *ray)
+void	calc_step_and_side_dist(t_cub *cub, t_ray *ray)
 {
-	//Bloc X : determination sens/distance sur X
+	// Bloc X : determination sens/distance sur X
 	if (ray->ray_dir_x < 0)
 	{
 		ray->step_x = -1;
@@ -38,9 +36,10 @@ void calc_step_and_side_dist(t_cub *cub, t_ray *ray)
 	else
 	{
 		ray->step_x = 1;
-		ray->side_dist_x = (ray->map_x + 1.0 - cub->player.x) * ray->delta_dist_x;
+		ray->side_dist_x = (ray->map_x + 1.0 - cub->player.x)
+			* ray->delta_dist_x;
 	}
-	//Bloc Y : Pareil sur Y
+	// Bloc Y : Pareil sur Y
 	if (ray->ray_dir_y < 0)
 	{
 		ray->step_y = -1;
@@ -49,14 +48,15 @@ void calc_step_and_side_dist(t_cub *cub, t_ray *ray)
 	else
 	{
 		ray->step_y = 1;
-		ray->side_dist_y = (ray->map_y + 1.0 - cub->player.y) * ray->delta_dist_y;
+		ray->side_dist_y = (ray->map_y + 1.0 - cub->player.y)
+			* ray->delta_dist_y;
 	}
 }
 
 void	perform_dda(t_cub *cub, t_ray *ray)
 {
-	char tile;
-	
+	char	tile;
+
 	while (ray->hit == 0)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
@@ -85,12 +85,10 @@ void	calc_wall_distance(t_ray *ray)
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 }
 
-
-
-void my_mlx_pixel_put(t_cub *cub, int x, int y, int color)
+void	my_mlx_pixel_put(t_cub *cub, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	dst = cub->addr + (y * cub->line_len + x * (cub->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }

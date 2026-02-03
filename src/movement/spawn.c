@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spawn.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nguinot- <nguinot-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 16:01:25 by nguinot-          #+#    #+#             */
-/*   Updated: 2026/01/19 17:38:16 by nguinot-         ###   ########.fr       */
+/*   Updated: 2026/01/30 13:32:03 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	init_player(t_cub *cub)
 {
-	int i;
+	int	i;
 	int	j;
+
 	i = 0;
 	while (cub->map.grid[i])
 	{
@@ -39,8 +40,16 @@ void	init_player(t_cub *cub)
 	exit(1);
 }
 
+static void	player_e(t_cub *cub)
+{
+	cub->player.dir_x = 1.0;
+	cub->player.dir_y = 0.0;
+	cub->player.plane_x = 0.0;
+	cub->player.plane_y = 0.66;
+}
+
 void	set_direction(t_cub *cub, char d)
-{	
+{
 	if (d == 'N')
 	{
 		cub->player.dir_x = 0.0;
@@ -63,10 +72,5 @@ void	set_direction(t_cub *cub, char d)
 		cub->player.plane_y = -0.66;
 	}
 	else if (d == 'E')
-	{
-		cub->player.dir_x = 1.0;
-		cub->player.dir_y = 0.0;
-		cub->player.plane_x = 0.0;
-		cub->player.plane_y = 0.66;
-	}
+		player_e(cub);
 }

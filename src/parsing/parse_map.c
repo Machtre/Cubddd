@@ -6,7 +6,7 @@
 /*   By: mbuisson <mbuisson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 14:57:16 by mbuisson          #+#    #+#             */
-/*   Updated: 2026/01/26 12:21:41 by mbuisson         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:00:20 by mbuisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,7 @@ char	**add_line(char **grid, char *line)
 	char	**new;
 	int		len;
 
-	len = 0;
-	if (grid)
-	{
-		while (grid[len])
-			len++;
-	}
+	len = tablen(grid);
 	i = 0;
 	new = malloc(sizeof(char *) * (len + 2));
 	if (!new)
@@ -111,17 +106,3 @@ char	**add_line(char **grid, char *line)
 	free(grid);
 	return (new);
 }
-
-// 56 bytes in 1 blocks are still reachable in loss record 21 of 65
-// ==81704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==81704==    by 0x11161B: add_line (parse_map.c:96)
-// ==81704==    by 0x1114C2: parse_map_line (parse_map.c:52)
-// ==81704==    by 0x110D31: parse_line (parse.c:45)
-// ==81704==    by 0x110DBB: parse_cub (parse.c:63)
-// ==81704==    by 0x10FEE1: main (main.c:122)
-// ==81704== 
-// ==81704== 66 bytes in 6 blocks are still reachable in loss record 22 of 65
-// ==81704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-// ==81704==    by 0x11029A: normalize_map (check_map.c:30)
-// ==81704==    by 0x110E02: parse_cub (parse.c:68)
-// ==81704==    by 0x10FEE1: main (main.c:122)
